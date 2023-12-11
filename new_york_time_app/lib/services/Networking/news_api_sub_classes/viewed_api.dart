@@ -10,7 +10,7 @@ class Viewed extends NewsApiServer {
         queryParameters: {'api-key': apiServer().apiKey},
       );
       print(response.data.toString());
-      return response.data;
+      return response.data['results'];
     } catch (e) {
       print(e.toString());
       return [];
@@ -24,7 +24,7 @@ class Viewed extends NewsApiServer {
         queryParameters: {'api-key': apiServer().apiKey},
       );
       print(response.data.toString());
-      return response.data;
+      return response.data['results'];
     } catch (e) {
       print(e.toString());
       return [];
@@ -38,7 +38,7 @@ class Viewed extends NewsApiServer {
         queryParameters: {'api-key': apiServer().apiKey},
       );
       print(response.data.toString());
-      return response.data;
+      return response.data['results'];
     } catch (e) {
       print(e.toString());
       return [];

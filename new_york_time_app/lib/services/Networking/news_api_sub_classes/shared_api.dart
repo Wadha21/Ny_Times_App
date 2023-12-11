@@ -12,7 +12,7 @@ class Shared extends NewsApiServer{
         queryParameters: {'api-key': apiServer().apiKey},
       );
       print(response.data.toString());
-      return response.data;
+      return response.data['results'];
     } catch (e) {
       print(e.toString());
       return [];
@@ -26,7 +26,7 @@ class Shared extends NewsApiServer{
         queryParameters: {'api-key': apiServer().apiKey},
       );
       print(response.data.toString());
-      return response.data;
+      return response.data['results'];
     } catch (e) {
       print(e.toString());
       return [];
@@ -41,7 +41,7 @@ class Shared extends NewsApiServer{
         queryParameters: {'api-key': apiServer().apiKey},
       );
       print(response.data.toString());
-      return response.data;
+      return response.data['results'];
     } catch (e) {
       print(e.toString());
       return [];

@@ -1,257 +1,168 @@
-import 'dart:convert';
-
-New newFromJson(String str) => New.fromJson(json.decode(str));
-
-String newToJson(New data) => json.encode(data.toJson());
-
 class New {
-    final String status;
-    final String copyright;
-    final int numResults;
-    final List<Result> results;
+  New({
+    required this.uri,
+    required this.url,
+    required this.id,
+    required this.assetId,
+    required this.source,
+    required this.publishedDate,
+    required this.updated,
+    required this.section,
+    required this.subsection,
+    required this.nytdsection,
+    required this.adxKeywords,
+    this.column,
+    required this.byline,
+    required this.type,
+    required this.title,
+    required this.abstract,
+    required this.desFacet,
+    required this.orgFacet,
+    required this.perFacet,
+    required this.geoFacet,
+    required this.media,
+    required this.etaId,
+  });
+  late final String uri;
+  late final String url;
+  late final int id;
+  late final int assetId;
+  late final String source;
+  late final String publishedDate;
+  late final String updated;
+  late final String section;
+  late final String subsection;
+  late final String nytdsection;
+  late final String adxKeywords;
+  late final Null column;
+  late final String byline;
+  late final String type;
+  late final String title;
+  late final String abstract;
+  late final List<String> desFacet;
+  late final List orgFacet;
+  late final List perFacet;
+  late final List<String> geoFacet;
+  late final List<Media> media;
+  late final int etaId;
 
-    New({
-        required this.status,
-        required this.copyright,
-        required this.numResults,
-        required this.results,
-    });
+  New.fromJson(Map<String, dynamic> json) {
+    uri = json['uri'];
+    url = json['url'];
+    id = json['id'];
+    assetId = json['asset_id'];
+    source = json['source'];
+    publishedDate = json['published_date'];
+    updated = json['updated'];
+    section = json['section'];
+    subsection = json['subsection'];
+    nytdsection = json['nytdsection'];
+    adxKeywords = json['adx_keywords'];
+    column = null;
+    byline = json['byline'];
+    type = json['type'];
+    title = json['title'];
+    abstract = json['abstract'];
+    desFacet = List.castFrom(json['des_facet']);
+    orgFacet = List.castFrom(json['org_facet']);
+    perFacet = List.castFrom(json['per_facet']);
+    geoFacet = List.castFrom(json['geo_facet']);
+    media = List.from(json['media']).map((e) => Media.fromJson(e)).toList();
+    etaId = json['eta_id'];
+  }
 
-    factory New.fromJson(Map<String, dynamic> json) => New(
-        status: json["status"],
-        copyright: json["copyright"],
-        numResults: json["num_results"],
-        results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "status": status,
-        "copyright": copyright,
-        "num_results": numResults,
-        "results": List<dynamic>.from(results.map((x) => x.toJson())),
-    };
-}
-
-class Result {
-    final String uri;
-    final String url;
-    final int id;
-    final int assetId;
-    final Source source;
-    final DateTime publishedDate;
-    final DateTime updated;
-    final String section;
-    final String subsection;
-    final String nytdsection;
-    final String adxKeywords;
-    final dynamic column;
-    final String byline;
-    final ResultType type;
-    final String title;
-    final String resultAbstract;
-    final List<String> desFacet;
-    final List<String> orgFacet;
-    final List<String> perFacet;
-    final List<String> geoFacet;
-    final List<Media> media;
-    final int etaId;
-
-    Result({
-        required this.uri,
-        required this.url,
-        required this.id,
-        required this.assetId,
-        required this.source,
-        required this.publishedDate,
-        required this.updated,
-        required this.section,
-        required this.subsection,
-        required this.nytdsection,
-        required this.adxKeywords,
-        required this.column,
-        required this.byline,
-        required this.type,
-        required this.title,
-        required this.resultAbstract,
-        required this.desFacet,
-        required this.orgFacet,
-        required this.perFacet,
-        required this.geoFacet,
-        required this.media,
-        required this.etaId,
-    });
-
-    factory Result.fromJson(Map<String, dynamic> json) => Result(
-        uri: json["uri"],
-        url: json["url"],
-        id: json["id"],
-        assetId: json["asset_id"],
-        source: sourceValues.map[json["source"]]!,
-        publishedDate: DateTime.parse(json["published_date"]),
-        updated: DateTime.parse(json["updated"]),
-        section: json["section"],
-        subsection: json["subsection"],
-        nytdsection: json["nytdsection"],
-        adxKeywords: json["adx_keywords"],
-        column: json["column"],
-        byline: json["byline"],
-        type: resultTypeValues.map[json["type"]]!,
-        title: json["title"],
-        resultAbstract: json["abstract"],
-        desFacet: List<String>.from(json["des_facet"].map((x) => x)),
-        orgFacet: List<String>.from(json["org_facet"].map((x) => x)),
-        perFacet: List<String>.from(json["per_facet"].map((x) => x)),
-        geoFacet: List<String>.from(json["geo_facet"].map((x) => x)),
-        media: List<Media>.from(json["media"].map((x) => Media.fromJson(x))),
-        etaId: json["eta_id"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "uri": uri,
-        "url": url,
-        "id": id,
-        "asset_id": assetId,
-        "source": sourceValues.reverse[source],
-        "published_date": "${publishedDate.year.toString().padLeft(4, '0')}-${publishedDate.month.toString().padLeft(2, '0')}-${publishedDate.day.toString().padLeft(2, '0')}",
-        "updated": updated.toIso8601String(),
-        "section": section,
-        "subsection": subsection,
-        "nytdsection": nytdsection,
-        "adx_keywords": adxKeywords,
-        "column": column,
-        "byline": byline,
-        "type": resultTypeValues.reverse[type],
-        "title": title,
-        "abstract": resultAbstract,
-        "des_facet": List<dynamic>.from(desFacet.map((x) => x)),
-        "org_facet": List<dynamic>.from(orgFacet.map((x) => x)),
-        "per_facet": List<dynamic>.from(perFacet.map((x) => x)),
-        "geo_facet": List<dynamic>.from(geoFacet.map((x) => x)),
-        "media": List<dynamic>.from(media.map((x) => x.toJson())),
-        "eta_id": etaId,
-    };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['uri'] = uri;
+    _data['url'] = url;
+    _data['id'] = id;
+    _data['asset_id'] = assetId;
+    _data['source'] = source;
+    _data['published_date'] = publishedDate;
+    _data['updated'] = updated;
+    _data['section'] = section;
+    _data['subsection'] = subsection;
+    _data['nytdsection'] = nytdsection;
+    _data['adx_keywords'] = adxKeywords;
+    _data['column'] = column;
+    _data['byline'] = byline;
+    _data['type'] = type;
+    _data['title'] = title;
+    _data['abstract'] = abstract;
+    _data['des_facet'] = desFacet;
+    _data['org_facet'] = orgFacet;
+    _data['per_facet'] = perFacet;
+    _data['geo_facet'] = geoFacet;
+    _data['media'] = media.map((e) => e.toJson()).toList();
+    _data['eta_id'] = etaId;
+    return _data;
+  }
 }
 
 class Media {
-    final MediaType type;
-    final Subtype subtype;
-    final String caption;
-    final String copyright;
-    final int approvedForSyndication;
-    final List<MediaMetadatum> mediaMetadata;
+  Media({
+    required this.type,
+    required this.subtype,
+    required this.caption,
+    required this.copyright,
+    required this.approvedForSyndication,
+    required this.mediametadata,
+  });
+  late final String type;
+  late final String subtype;
+  late final String caption;
+  late final String copyright;
+  late final int approvedForSyndication;
+  late final List<Mediametadata> mediametadata;
 
-    Media({
-        required this.type,
-        required this.subtype,
-        required this.caption,
-        required this.copyright,
-        required this.approvedForSyndication,
-        required this.mediaMetadata,
-    });
+  Media.fromJson(Map<String, dynamic> json) {
+    type = json['type'];
+    subtype = json['subtype'];
+    caption = json['caption'];
+    copyright = json['copyright'];
+    approvedForSyndication = json['approved_for_syndication'];
+    mediametadata = List.from(json['media-metadata'])
+        .map((e) => Mediametadata.fromJson(e))
+        .toList();
+  }
 
-    factory Media.fromJson(Map<String, dynamic> json) => Media(
-        type: mediaTypeValues.map[json["type"]]!,
-        subtype: subtypeValues.map[json["subtype"]]!,
-        caption: json["caption"],
-        copyright: json["copyright"],
-        approvedForSyndication: json["approved_for_syndication"],
-        mediaMetadata: List<MediaMetadatum>.from(json["media-metadata"].map((x) => MediaMetadatum.fromJson(x))),
-    );
-
-    Map<String, dynamic> toJson() => {
-        "type": mediaTypeValues.reverse[type],
-        "subtype": subtypeValues.reverse[subtype],
-        "caption": caption,
-        "copyright": copyright,
-        "approved_for_syndication": approvedForSyndication,
-        "media-metadata": List<dynamic>.from(mediaMetadata.map((x) => x.toJson())),
-    };
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['type'] = type;
+    _data['subtype'] = subtype;
+    _data['caption'] = caption;
+    _data['copyright'] = copyright;
+    _data['approved_for_syndication'] = approvedForSyndication;
+    _data['media-metadata'] = mediametadata.map((e) => e.toJson()).toList();
+    return _data;
+  }
 }
 
-class MediaMetadatum {
-    final String url;
-    final Format format;
-    final int height;
-    final int width;
+class Mediametadata {
+  Mediametadata({
+    required this.url,
+    required this.format,
+    required this.height,
+    required this.width,
+  });
+  late final String url;
+  late final String format;
+  late final int height;
+  late final int width;
 
-    MediaMetadatum({
-        required this.url,
-        required this.format,
-        required this.height,
-        required this.width,
-    });
+  Mediametadata.fromJson(Map<String, dynamic> json) {
+    url = json['url'];
+    format = json['format'];
+    height = json['height'];
+    width = json['width'];
+  }
 
-    factory MediaMetadatum.fromJson(Map<String, dynamic> json) => MediaMetadatum(
-        url: json["url"],
-        format: formatValues.map[json["format"]]!,
-        height: json["height"],
-        width: json["width"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "url": url,
-        "format": formatValues.reverse[format],
-        "height": height,
-        "width": width,
-    };
-}
-
-enum Format {
-    MEDIUM_THREE_BY_TWO210,
-    MEDIUM_THREE_BY_TWO440,
-    STANDARD_THUMBNAIL
-}
-
-final formatValues = EnumValues({
-    "mediumThreeByTwo210": Format.MEDIUM_THREE_BY_TWO210,
-    "mediumThreeByTwo440": Format.MEDIUM_THREE_BY_TWO440,
-    "Standard Thumbnail": Format.STANDARD_THUMBNAIL
-});
-
-enum Subtype {
-    EMPTY,
-    PHOTO
-}
-
-final subtypeValues = EnumValues({
-    "": Subtype.EMPTY,
-    "photo": Subtype.PHOTO
-});
-
-enum MediaType {
-    IMAGE
-}
-
-final mediaTypeValues = EnumValues({
-    "image": MediaType.IMAGE
-});
-
-enum Source {
-    NEW_YORK_TIMES
-}
-
-final sourceValues = EnumValues({
-    "New York Times": Source.NEW_YORK_TIMES
-});
-
-enum ResultType {
-    ARTICLE,
-    INTERACTIVE
-}
-
-final resultTypeValues = EnumValues({
-    "Article": ResultType.ARTICLE,
-    "Interactive": ResultType.INTERACTIVE
-});
-
-class EnumValues<T> {
-    Map<String, T> map;
-    late Map<T, String> reverseMap;
-
-    EnumValues(this.map);
-
-    Map<T, String> get reverse {
-        reverseMap = map.map((k, v) => MapEntry(v, k));
-        return reverseMap;
-    }
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['url'] = url;
+    _data['format'] = format;
+    _data['height'] = height;
+    _data['width'] = width;
+    return _data;
+  }
 }
