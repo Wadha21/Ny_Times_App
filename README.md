@@ -21,9 +21,9 @@ To set up and run the app locally, please follow the steps below:
 8. Run the app using the command flutter run.
 ## Dependencies
 This app utilizes the following third-party libraries:
-dio: ^5.4.0 for making API requests.
-flutter_bloc: ^8.1.3 for state management using the BLoC (Business Logic Component) architecture.
-get_it: ^7.6.4 for dependency injection.
-url_launcher: ^6.2.2 for opening the article URL in a web browser.
+- dio: ^5.4.0 for making API requests.
+- flutter_bloc: ^8.1.3 for state management using the BLoC (Business Logic Component) architecture.
+- get_it: ^7.6.4 for dependency injection.
+- url_launcher: ^6.2.2 for opening the article URL in a web browser.
 Make sure these dependencies are included in your pubspec.yaml file. Run flutter pub get to fetch the required packages.
 
